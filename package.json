@@ -1,0 +1,13 @@
+{
+  "name": "kickflip-supply",
+  "private": true,
+  "description": "Storefront and API in one repository with independent application dependencies.",
+  "scripts": {
+    "dev:web": "npm run dev --prefix apps/web",
+    "dev:api": "npm run dev --prefix apps/api",
+    "check:web": "npm run check --prefix apps/web",
+    "check:api": "npm run check --prefix apps/api",
+    "check": "npm run check:api && npm run check:web",
+    "test:e2e": "npm run test:e2e --prefix apps/web"
+  }
+}

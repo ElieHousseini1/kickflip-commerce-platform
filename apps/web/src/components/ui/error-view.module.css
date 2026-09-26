@@ -1,0 +1,38 @@
+.page {
+  min-height: calc(100vh - 106px);
+  padding-block: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.page > svg {
+  margin-bottom: 24px;
+  color: #a23b31;
+}
+
+.page h1 {
+  max-width: 850px;
+  margin: 12px 0 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(50px, 7vw, 88px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
+
+.page > p {
+  max-width: 560px;
+  margin: 24px 0 30px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}

@@ -1,0 +1,110 @@
+.container {
+  width: min(100% - 56px, 1480px);
+  margin-inline: auto;
+}
+.eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.button {
+  min-height: 50px;
+  padding: 0 24px;
+  border: 2px solid var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+.button:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.buttonDark {
+  background: var(--ink);
+  color: white;
+}
+.buttonBlue {
+  background: var(--acid);
+  color: var(--acid-contrast);
+}
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 32px;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.commercePage {
+  padding-block: 75px 120px;
+}
+.commerceHeading {
+  margin-bottom: 55px;
+}
+.commerceHeading h1 {
+  margin: 12px 0 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(64px, 8vw, 108px);
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+.commerceHeading h1 sup {
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0;
+  vertical-align: top;
+}
+.commerceHeading > p {
+  max-width: 400px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+.error {
+  padding: 11px 13px;
+  border-left: 2px solid #b33d2e;
+  background: rgba(179, 61, 46, 0.08);
+  color: #8b2e22;
+  font-size: 12px;
+  line-height: 1.45;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 720px) {
+  .container {
+    width: min(100% - 30px, 1480px);
+  }
+  .commercePage {
+    padding-block: 55px 80px;
+  }
+  .commerceHeading {
+    margin-bottom: 38px;
+  }
+}

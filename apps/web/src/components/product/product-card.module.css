@@ -1,0 +1,487 @@
+.card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  perspective: 900px;
+  transition: transform 0.2s ease;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 0.79;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: #d8d3c6;
+  box-shadow: 5px 5px 0 var(--ink);
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.16s ease-out;
+}
+
+.media::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    circle at var(--glow-x) var(--glow-y),
+    rgba(255, 255, 255, 0.2),
+    transparent 38%
+  );
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.card:hover .media {
+  box-shadow: 9px 9px 0 var(--ink);
+}
+
+.card:hover .media::after {
+  opacity: 1;
+}
+
+.media > a {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.media img {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.card:hover .media img {
+  transform: scale(1.055) rotate(-0.6deg);
+}
+
+.badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 7px 10px;
+  border: 2px solid var(--ink);
+  background: var(--acid);
+  color: var(--acid-contrast);
+  font-size: 9px;
+  font-weight: 800;
+  transform: rotate(-3deg);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition: transform 0.2s cubic-bezier(0.2, 1.5, 0.4, 1);
+  z-index: 2;
+}
+
+.card:hover .badge {
+  transform: rotate(3deg) scale(1.08);
+}
+
+.favoriteButton {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  width: 38px;
+  height: 38px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--ink);
+  z-index: 2;
+  transition:
+    transform 0.15s,
+    background 0.15s;
+}
+
+.favoriteButton:hover {
+  transform: rotate(10deg) scale(1.08);
+}
+
+.favoriteButton:active {
+  transform: rotate(-8deg) scale(0.9);
+}
+
+.favoriteButton.isActive {
+  background: var(--brand);
+  color: white;
+}
+
+.quickAdd {
+  min-height: 42px;
+  flex: 1;
+  border: 2px solid var(--ink);
+  background: var(--acid);
+  color: var(--acid-contrast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+
+.quickAdd:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.quickAdd:hover {
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: translate(-2px, -2px);
+}
+
+.quickAdd:active {
+  transform: translateY(2px) scale(0.98);
+}
+
+.quickAdd.isAdded {
+  background: var(--brand);
+  color: white;
+  animation: landed 0.42s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+.cardActions {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+}
+.quickViewTrigger {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 3;
+  min-height: 40px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(18px);
+  transition:
+    opacity 0.18s,
+    transform 0.18s;
+}
+.card:hover .quickViewTrigger,
+.quickViewTrigger:focus-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.quickViewBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  border: 0;
+  background: rgba(17, 17, 15, 0.55);
+  touch-action: none;
+}
+
+.quickViewDrawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 71;
+  width: min(92vw, 480px);
+  padding: 28px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+  box-shadow: -9px 0 0 var(--ink);
+  animation: drawerIn 0.25s ease-out both;
+}
+
+.drawerClose {
+  width: 42px;
+  height: 42px;
+  margin: 0 0 18px auto;
+  border: 2px solid var(--ink);
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.drawerImage {
+  position: relative;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+}
+
+.drawerImage img {
+  object-fit: cover;
+}
+
+.quickViewDrawer > p:not(.drawerDescription) {
+  margin: 22px 0 7px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.quickViewDrawer h2 {
+  margin: 0;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 40px;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.drawerPrice {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.drawerDescription {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.quickViewDrawer .quickAdd {
+  width: 100%;
+  min-height: 52px;
+}
+
+.fullDetailsLink {
+  margin-top: 18px;
+  border-bottom: 1px solid;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.info {
+  padding-top: 17px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.info p {
+  margin: 0 0 5px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.info a {
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  transition:
+    color 0.15s,
+    text-shadow 0.15s;
+}
+
+.info a:hover {
+  color: var(--muted);
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+.price del {
+  color: var(--muted);
+  font-size: 9px;
+}
+.price strong {
+  padding-top: 2px;
+  padding: 5px 7px;
+  background: var(--ink);
+  color: white;
+  font-size: 12px;
+}
+
+.variantSummary {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.optionValues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.optionValues span {
+  padding: 3px 6px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.cardError {
+  margin: 10px 0 0;
+  color: #8b2e22;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+@keyframes landed {
+  45% {
+    transform: translateY(-7px) rotate(-2deg);
+  }
+}
+
+@keyframes drawerIn {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 720px) {
+  .card {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: 16px;
+    align-items: start;
+  }
+
+  .media {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 112px;
+    aspect-ratio: 0.82;
+    box-shadow: none;
+  }
+
+  .badge {
+    top: 6px;
+    left: 6px;
+    padding: 5px 7px;
+    font-size: 10px;
+  }
+
+  .favoriteButton {
+    top: 6px;
+    right: 6px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .quickViewTrigger,
+  .quickViewBackdrop,
+  .quickViewDrawer {
+    display: none;
+  }
+
+  .quickAdd {
+    min-height: 46px;
+    font-size: 12px;
+  }
+  .cardActions {
+    grid-column: 2;
+    margin-top: 10px;
+  }
+
+  .info {
+    grid-column: 2;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 0;
+  }
+
+  .info a {
+    font-size: 22px;
+    line-height: 1.08;
+  }
+
+  .info p {
+    font-size: 12px;
+  }
+
+  .price {
+    align-items: flex-start;
+  }
+
+  .price del {
+    font-size: 12px;
+  }
+
+  .price strong {
+    font-size: 14px;
+  }
+
+  .variantSummary {
+    grid-column: 2;
+    margin-top: 9px;
+  }
+
+  .compactMobile {
+    display: block;
+  }
+
+  .compactMobile .media {
+    width: 100%;
+    aspect-ratio: 0.84;
+  }
+
+  .compactMobile .info {
+    padding-top: 12px;
+  }
+
+  .compactMobile .cardActions,
+  .compactMobile .variantSummary {
+    margin-top: 9px;
+  }
+
+  .optionValues span {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media,
+  .card:hover .media {
+    transform: none;
+  }
+
+  .quickAdd.isAdded {
+    animation: none;
+  }
+}

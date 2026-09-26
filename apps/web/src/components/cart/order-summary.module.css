@@ -1,0 +1,54 @@
+.summary {
+  padding: 30px;
+  border: 2px solid var(--ink);
+  background: var(--acid);
+  color: var(--acid-contrast);
+  box-shadow: 7px 7px 0 var(--ink);
+  position: sticky;
+  top: 25px;
+}
+
+.summary > div {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.summary .total {
+  font-size: 16px;
+}
+
+.summary > p {
+  margin: 18px 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.summaryButton {
+  width: 100%;
+}
+
+.continueLink {
+  margin-top: 18px;
+  display: block;
+  font-size: 10px;
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+@media (max-width: 1000px) {
+  .summary {
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .summary {
+    padding: 24px 20px;
+  }
+}

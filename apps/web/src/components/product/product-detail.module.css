@@ -1,0 +1,185 @@
+.productPage {
+  padding-block: 40px 100px;
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: clamp(40px, 7vw, 110px);
+  align-items: center;
+}
+
+.detailImage {
+  position: relative;
+  aspect-ratio: 1;
+  border: 3px solid var(--ink);
+  background: #e8e3d8;
+  box-shadow: 9px 9px 0 var(--ink);
+  transform: rotate(-0.6deg);
+}
+
+.detailImage img {
+  object-fit: cover;
+}
+
+.detailContent {
+  max-width: 500px;
+}
+
+.detail h1 {
+  margin: 16px 0 10px;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(55px, 6vw, 84px);
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.detailPrice {
+  margin: 20px 0 26px;
+  font-size: 19px;
+  width: fit-content;
+  padding: 7px 10px;
+  background: var(--acid);
+  color: var(--acid-contrast);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  font-weight: 800;
+}
+
+.detailDescription {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.colorPicker {
+  margin: 32px 0;
+}
+
+.colorPicker > span {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.colorPicker > div {
+  display: flex;
+  gap: 10px;
+}
+
+.colorPicker button {
+  min-width: 48px;
+  min-height: 38px;
+  padding: 7px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.colorPicker button.isSelected {
+  background: var(--ink);
+  color: white;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: translate(-2px, -2px);
+}
+
+.detailActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.addControl {
+  min-width: 0;
+}
+
+.detailActions .addButton {
+  width: 100%;
+}
+
+.detailActions .addButton.isAdded {
+  background: var(--brand);
+  color: var(--brand-contrast);
+}
+
+.addButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+.actionError {
+  margin: 8px 0 0;
+  color: #8b2e22;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.wishlistControl {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wishlistButton {
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+.wishlistButton.isActive {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+}
+
+.detailBenefits {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.detailBenefits p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+}
+
+@media (max-width: 1000px) {
+  .detail {
+    gap: 45px;
+  }
+}
+
+@media (max-width: 720px) {
+  .productPage {
+    padding-top: 25px;
+  }
+
+  .detail {
+    grid-template-columns: 1fr;
+  }
+
+  .detailContent {
+    padding: 10px 4px;
+  }
+
+  .detail h1 {
+    font-size: 58px;
+  }
+
+  .detailActions {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,21 @@
+.page {
+  min-height: calc(100vh - 106px);
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

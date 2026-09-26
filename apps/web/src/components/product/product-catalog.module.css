@@ -1,0 +1,637 @@
+.catalogPage {
+  padding: 0 0 120px;
+  overflow: hidden;
+}
+
+.catalogContent {
+  min-width: 0;
+}
+
+.categoryBar {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.catalogCategories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.catalogCategories button {
+  padding: 9px 15px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition:
+    transform 0.15s,
+    background 0.15s,
+    box-shadow 0.15s;
+}
+
+.catalogCategories button:hover {
+  color: var(--ink);
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.catalogCategories button.isActive {
+  border-color: var(--ink);
+  background: var(--acid);
+  color: var(--acid-contrast);
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(-1deg);
+}
+
+.catalogLayout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 34px;
+  padding-top: 30px;
+}
+
+.filtersPanel {
+  grid-column: 1;
+  grid-row: 1;
+  position: sticky;
+  top: 104px;
+  align-self: start;
+  padding-right: 24px;
+  border-right: 2px solid var(--ink);
+}
+
+.filtersHeading {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.filtersHeading h2 {
+  margin: 0;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.filterGroup {
+  padding: 20px 0 24px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.filterLabel {
+  display: block;
+  margin-bottom: 11px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.filterOptions button,
+.saleToggle {
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-left: 3px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.filterOptions button:hover,
+.filterOptions button.isSelected,
+.saleToggle:hover,
+.saleToggle.isSelected {
+  border-left-color: var(--ink);
+  background: var(--acid);
+  color: var(--acid-contrast);
+}
+
+.priceRangeLabels {
+  margin-bottom: 9px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+}
+
+.dualRange {
+  position: relative;
+  width: 100%;
+  height: 28px;
+}
+
+.dualRange::before,
+.rangeFill {
+  position: absolute;
+  top: 13px;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: var(--line);
+  content: "";
+}
+
+.rangeFill {
+  z-index: 1;
+  background: var(--ink);
+}
+
+.dualRange input {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+
+.dualRange input::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  appearance: none;
+  background: var(--acid);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.dualRange input::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--acid);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.resetFilters {
+  margin-top: 18px;
+  padding: 0 0 3px;
+  border: 0;
+  border-bottom: 1px solid;
+  background: transparent;
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.catalogResults {
+  grid-column: 2;
+  min-width: 0;
+  scroll-margin-top: 110px;
+}
+
+.pagination {
+  margin-top: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pagination button {
+  min-width: 42px;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.pagination button:hover:not(:disabled),
+.pagination button[aria-current="page"] {
+  background: var(--brand);
+  color: var(--brand-contrast);
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.catalogResultRow {
+  min-height: 42px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.catalogStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.catalogStatus:empty {
+  display: none;
+}
+
+.catalogControls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.desktopViewControl > span,
+.mobileViewControl > span,
+.sortControl > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.viewOptions {
+  display: flex;
+  gap: 3px;
+}
+
+.desktopViewControl {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.mobileViewControl,
+.mobileCategories {
+  display: none;
+}
+
+.viewOptions button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.viewOptions button.isSelected {
+  background: var(--brand);
+  color: var(--brand-contrast);
+}
+
+.mobileCatalogActions,
+.mobileSortDrawer,
+.drawerClose,
+.drawerBackdrop {
+  display: none;
+}
+
+.sortControl {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.sortControl > div {
+  width: 170px;
+}
+
+.catalogResultRow p {
+  margin: 0;
+}
+
+.catalogResultRow strong {
+  color: var(--ink);
+}
+
+.filterStatus {
+  color: var(--ink);
+}
+
+.requestError {
+  margin: 0 0 18px;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  background: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.catalogGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 68px 20px;
+}
+
+.threeColumnGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.wishlistGrid {
+  padding-bottom: 30px;
+}
+
+.emptyResults {
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.emptyResults h2 {
+  margin: 0;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.emptyResults p {
+  margin: 8px 0 25px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .catalogLayout {
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .filtersPanel {
+    padding-right: 18px;
+  }
+}
+
+@media (max-width: 720px) {
+  .catalogPage {
+    padding-bottom: 80px;
+    overflow: visible;
+  }
+
+  .categoryBar {
+    display: none;
+  }
+
+  .categoryBar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .catalogCategories {
+    width: max-content;
+    justify-content: flex-start;
+    padding: 0 3px;
+  }
+
+  .catalogLayout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-top: 20px;
+  }
+
+  .catalogResults {
+    grid-column: 1;
+  }
+
+  .filtersPanel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 61;
+    width: min(88vw, 360px);
+    padding: 24px;
+    overflow-y: auto;
+    border: 0;
+    background: var(--paper);
+    box-shadow: -8px 0 0 var(--ink);
+    transform: translateX(calc(100% + 12px));
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.25s ease;
+  }
+
+  .filtersHeading {
+    min-height: 34px;
+  }
+
+  .filterGroup {
+    padding: 12px 0 0;
+    border-bottom: 0;
+  }
+
+  .mobileCategories {
+    display: block;
+  }
+
+  .filterOptions button {
+    width: 100%;
+  }
+
+  .filterOptions button:hover,
+  .filterOptions button.isSelected {
+    border-left-color: var(--ink);
+  }
+
+  .resetFilters {
+    margin-top: 14px;
+  }
+
+  .catalogResultRow {
+    min-height: 48px;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .catalogControls {
+    width: 100%;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-content: stretch;
+    order: -1;
+  }
+
+  .mobileCatalogActions {
+    grid-column: 1 / -1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .mobileCatalogActions button {
+    min-height: 42px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .sortControl {
+    display: none;
+  }
+
+  .desktopViewControl {
+    display: none;
+  }
+
+  .mobileViewControl {
+    grid-column: 2;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 9px;
+  }
+
+  .mobileViews {
+    padding: 2px;
+    border: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mobileViews button {
+    width: 34px;
+    height: 32px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .mobileViews button.isSelected {
+    background: var(--brand);
+    color: var(--brand-contrast);
+  }
+
+  .filterLabel {
+    font-size: 12px;
+  }
+
+  .filterOptions button,
+  .saleToggle {
+    min-height: 42px;
+    font-size: 14px;
+  }
+
+  .priceRangeLabels {
+    font-size: 13px;
+  }
+
+  .drawerClose {
+    width: 38px;
+    height: 38px;
+    margin-left: auto;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+
+  .drawerOpen {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .drawerBackdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 60;
+    height: 100vh;
+    height: 100dvh;
+    border: 0;
+    background: rgba(17, 17, 15, 0.52);
+    display: block;
+  }
+
+  .mobileSortDrawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 61;
+    width: min(88vw, 360px);
+    padding: 24px;
+    overflow-y: auto;
+    background: var(--paper);
+    box-shadow: -8px 0 0 var(--ink);
+    display: block;
+    transform: translateX(calc(100% + 12px));
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.25s ease;
+  }
+
+  .mobileSortDrawer.drawerOpen {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .catalogGrid {
+    grid-template-columns: 1fr;
+    gap: 45px 12px;
+  }
+
+  .mobileTwoColumnGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 38px 12px;
+  }
+}

@@ -1,0 +1,26 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 0.65fr);
+  gap: clamp(50px, 8vw, 120px);
+  align-items: start;
+}
+
+.lines {
+  border-top: 1px solid var(--line);
+}
+
+.error {
+  margin: -30px 0 24px;
+}
+
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .error {
+    margin-top: -20px;
+  }
+}

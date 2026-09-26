@@ -1,0 +1,14 @@
+.logo {
+  display: inline-block;
+  color: inherit;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 1;
+  white-space: nowrap;
+  transform: skew(-8deg) rotate(-2deg);
+}
+
+.logo span {
+  color: var(--brand);
+}

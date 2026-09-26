@@ -1,0 +1,421 @@
+.announcement {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 6px 24px;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.content {
+  flex: 1;
+}
+
+.siteHeader {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.96);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(12px);
+}
+.headerInner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(280px, 620px) minmax(
+      320px,
+      1fr
+    );
+  align-items: center;
+  gap: 28px;
+}
+.wordmark {
+  font-size: 33px;
+}
+.headerSearch {
+  position: relative;
+  min-width: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 14px;
+  border: 2px solid var(--ink);
+  background: white;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.headerSearch:focus-within {
+  position: absolute;
+  inset-inline: 0;
+  z-index: 4;
+  width: 100%;
+  box-shadow: 8px 8px 0 var(--ink);
+  transform: scale(1.015);
+}
+.headerSearch input {
+  min-width: 0;
+  flex: 1;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 650;
+  text-transform: uppercase;
+}
+.headerSearch input::-webkit-search-cancel-button,
+.headerSearch input::-webkit-search-decoration {
+  display: none;
+  appearance: none;
+}
+.searchSubmit {
+  align-self: stretch;
+  padding: 0 18px;
+  border: 0;
+  border-left: 2px solid var(--ink);
+  background: var(--acid);
+  color: var(--acid-contrast);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.searchCancel {
+  width: auto;
+  height: 100%;
+  padding: 0 9px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.searchSuggestions {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding: 6px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.searchSuggestions button {
+  width: 100%;
+  min-height: 82px;
+  padding: 8px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+  text-align: left;
+}
+.searchSuggestions button:last-child {
+  border-bottom: 0;
+}
+.searchSuggestions button:hover,
+.searchSuggestions button:focus-visible {
+  background: #f2f5ff;
+}
+.suggestionImage {
+  position: relative;
+  width: 58px;
+  aspect-ratio: 0.82;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  background: var(--cream);
+}
+.suggestionImage img {
+  object-fit: cover;
+}
+.suggestionImage i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  padding: 3px 4px;
+  background: white;
+  color: var(--ink);
+  font-size: 7px;
+  font-style: normal;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.suggestionInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.searchSuggestions small {
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.searchSuggestions strong {
+  font-size: 15px;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+.suggestionPrice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+.suggestionPrice del {
+  color: var(--muted);
+  font-size: 10px;
+}
+.suggestionPrice b {
+  padding: 5px 7px;
+  background: var(--ink);
+  color: white;
+  font-size: 12px;
+}
+.mobileSearchBackdrop {
+  display: none;
+}
+.headerActions {
+  position: relative;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.headerError {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: max-content;
+  max-width: min(280px, calc(100vw - 32px));
+  padding: 9px 12px;
+  border: 1px solid rgba(179, 61, 46, 0.35);
+  background: var(--paper);
+  color: #8b2e22;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.iconButton {
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.iconButton {
+  width: 38px;
+  height: 38px;
+}
+.iconButton:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+.cartCount {
+  background: var(--acid);
+  color: var(--acid-contrast);
+  min-width: 20px;
+  height: 20px;
+  border-radius: 0;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+.headerCountLink {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+.headerCountLink:hover {
+  color: var(--muted);
+}
+.cartTotalLink strong {
+  min-width: 46px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.accountName {
+  min-width: 0;
+  max-width: 180px;
+  padding-right: 4px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.accountName > span {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.accountName small,
+.accountName strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.accountName small {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.accountName strong {
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.1;
+}
+.logoutButton {
+  width: auto;
+  gap: 7px;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  padding: 0 15px 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.loginMain {
+  min-height: 100vh;
+}
+
+@media (max-width: 1320px) {
+  .headerInner {
+    grid-template-columns: auto minmax(230px, 1fr) auto;
+    gap: 18px;
+  }
+  .accountName {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .announcement {
+    min-height: 30px;
+    padding-block: 5px;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+  .siteHeader {
+    min-height: 126px;
+    padding: 12px 0;
+  }
+  .headerInner {
+    grid-template-columns: 1fr auto;
+    gap: 10px 14px;
+  }
+  .wordmark {
+    justify-self: start;
+    font-size: 32px;
+  }
+  .headerActions {
+    gap: 8px;
+  }
+  .headerSearch {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    height: 46px;
+  }
+  .headerSearch:focus-within {
+    inset-inline: 0;
+    width: 100%;
+    transform: none;
+  }
+  .headerSearchActive {
+    position: fixed;
+    top: 8px;
+    right: 10px;
+    left: 10px;
+    z-index: 42;
+    width: auto;
+    background: white;
+    box-shadow: none;
+  }
+  .searchSuggestions {
+    max-height: calc(100dvh - 70px);
+    padding: 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .searchSuggestions button {
+    min-height: 112px;
+    grid-template-columns: 82px minmax(0, 1fr) auto;
+    gap: 12px;
+  }
+  .suggestionImage {
+    width: 82px;
+  }
+  .suggestionImage i {
+    font-size: 8px;
+  }
+  .searchSuggestions small {
+    font-size: 12px;
+  }
+  .searchSuggestions strong {
+    font-size: 18px;
+  }
+  .suggestionPrice del {
+    font-size: 11px;
+  }
+  .suggestionPrice b {
+    font-size: 14px;
+  }
+  .mobileSearchBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 41;
+    border: 0;
+    background: rgba(17, 17, 15, 0.78);
+    display: block;
+  }
+  .cartTotalLink strong {
+    font-size: 12px;
+  }
+  .logoutButton {
+    border-right: 0;
+    padding: 0;
+    width: 38px;
+  }
+  .logoutButton span {
+    display: none;
+  }
+}

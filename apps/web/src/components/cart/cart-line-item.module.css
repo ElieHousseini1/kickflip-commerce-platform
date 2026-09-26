@@ -1,0 +1,157 @@
+.line {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 24px;
+}
+
+.image {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.image img {
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.info > a {
+  margin: 7px 0 8px;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.info > span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.variantControl {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.variantControl span {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.variantControl select {
+  max-width: 190px;
+  padding: 5px 26px 5px 8px;
+  border: 1px solid var(--line);
+  outline: 0;
+  background: rgba(255, 255, 255, 0.45);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.variantControl select:focus-visible {
+  border-color: var(--ink);
+}
+
+.lineSubtotal {
+  margin: auto 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.lineSubtotal span {
+  color: var(--muted);
+}
+
+.lineSubtotal strong {
+  font-size: 13px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.quantityControl {
+  width: max-content;
+  margin-top: 15px;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+}
+
+.quantityControl button {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.quantityControl span {
+  width: 26px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.remove {
+  padding: 5px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.variantControl select:disabled,
+.quantityControl button:disabled,
+.remove:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+@media (max-width: 720px) {
+  .line {
+    grid-template-columns: 100px 1fr;
+    gap: 15px;
+  }
+
+  .actions {
+    grid-column: 2;
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+  .info > a {
+    font-size: 22px;
+  }
+
+  .lineSubtotal {
+    margin-top: 14px;
+  }
+}

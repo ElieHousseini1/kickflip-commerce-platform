@@ -1,0 +1,28 @@
+.page {
+  min-height: calc(100vh - 106px);
+  padding-block: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.page > svg {
+  margin-bottom: 28px;
+  color: var(--ink);
+}
+
+.page h1 {
+  margin: 12px 0 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(54px, 7vw, 88px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.84;
+}
+
+.page > p {
+  margin: 20px 0 30px;
+  color: var(--muted);
+}

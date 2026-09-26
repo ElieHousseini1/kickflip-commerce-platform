@@ -1,0 +1,56 @@
+.dropdown {
+  position: relative;
+  min-width: 0;
+}
+
+.trigger {
+  min-height: 36px;
+  width: 100%;
+  padding: 0 10px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 750;
+  text-align: left;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  z-index: 80;
+  min-width: max(100%, 220px);
+  padding: 5px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.menu button {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.menu button:hover,
+.menu button.selected {
+  background: var(--acid);
+  color: var(--acid-contrast);
+}
