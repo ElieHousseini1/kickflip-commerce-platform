@@ -40,7 +40,7 @@ describe("Form commerce API", () => {
     ).toMatchObject({
       slug: "diy-quarter-pipe",
       name: "DIY Quarter Pipe",
-      image: "/images/products/diy-quarter-pipe-v3.jpg",
+      image: "/assets/images/products/diy-quarter-pipe-v3.jpg",
     });
     expect(
       catalogProducts.find((item) => item.id === "lamp-001")?.compareAtPrice,
@@ -52,6 +52,25 @@ describe("Form commerce API", () => {
       .expect(200);
     expect(detail.body.product.id).toBe(product.id);
     expect(detail.body.product.variants.length).toBeGreaterThan(0);
+  });
+
+  it("serves images stored in the database with cache metadata", async () => {
+    const image = await request(app)
+      .get("/api/assets/images/products/diy-quarter-pipe-v3.jpg")
+      .expect(200)
+      .expect("Content-Type", "image/jpeg");
+
+    expect(image.body).toBeInstanceOf(Buffer);
+    expect(image.body.length).toBeGreaterThan(1_000);
+    const etag = image.headers.etag;
+    expect(etag).toMatch(/^"[a-f0-9]{64}"$/);
+    if (!etag)
+      throw new Error("Expected the asset response to include an ETag.");
+
+    await request(app)
+      .get("/api/assets/images/products/diy-quarter-pipe-v3.jpg")
+      .set("If-None-Match", etag)
+      .expect(304);
   });
 
   it("searches, filters, and sorts products on the server", async () => {

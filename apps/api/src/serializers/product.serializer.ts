@@ -21,7 +21,7 @@ export function serializeProduct(product: Product): ProductDto {
       : {}),
     stockQuantity: product.stockQuantity,
     description: product.description,
-    image: product.image,
+    image: `/assets/${product.image.replace(/^\//, "")}`,
     variantName: product.variantName,
     variantOptions: variants.map(({ name }) => name),
     colors: variants.map(({ color }) => color),

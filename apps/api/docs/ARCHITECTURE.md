@@ -32,6 +32,10 @@ Checkout reads the cart, conditionally decrements stock, writes the order and im
 
 Schema changes are explicit, ordered, and recorded in `schema_migrations`. Runtime schema guessing (`sync({ alter: true })`) is intentionally avoided because it is difficult to review and unsafe for controlled deployments.
 
+### Database-backed images
+
+The `assets` table stores image bytes, MIME types, and content hashes. Product rows keep a small asset key, and the public asset endpoint streams the matching BLOB with ETag and cache headers. The seed imports all checked-in source images idempotently, keeping this assessment self-contained without a storage service.
+
 ### SQLite for the assessment
 
 SQLite eliminates external infrastructure and supports real transactions, constraints, and integration tests. WAL mode improves local read/write behavior. A multi-instance deployment should use PostgreSQL and a shared rate-limit store; the service/repository boundaries make that evolution straightforward.

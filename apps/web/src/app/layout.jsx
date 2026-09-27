@@ -4,6 +4,7 @@ import { AuthProvider } from "@/components/providers/auth-provider";
 import { AppShell } from "@/components/layout/app-shell";
 import { getSession } from "@/services/server-api";
 import { getSiteUrl } from "@/lib/site-url";
+import { getAssetUrl } from "@/lib/assets";
 
 const sans = Space_Grotesk({
   variable: "--font-sans",
@@ -44,7 +45,7 @@ export const metadata = {
     url: "/products",
     images: [
       {
-        url: "/images/skate-hero.jpg",
+        url: getAssetUrl("images/skate-hero.jpg"),
         width: 1024,
         height: 1536,
         alt: "A skateboarder landing a kickflip",
@@ -55,7 +56,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Kickflip Supply — Built for the streets",
     description: "Independent skate goods for good lines and bad ideas.",
-    images: ["/images/skate-hero.jpg"],
+    images: [getAssetUrl("images/skate-hero.jpg")],
   },
   robots: { index: true, follow: true },
 };

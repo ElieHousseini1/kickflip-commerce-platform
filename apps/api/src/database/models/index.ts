@@ -1,4 +1,5 @@
 import type { Sequelize } from "sequelize";
+import { Asset, initAssetModel } from "./asset.model.js";
 import { CartItem, initCartItemModel } from "./cart-item.model.js";
 import { initOrderItemModel, OrderItem } from "./order-item.model.js";
 import { initOrderModel, Order } from "./order.model.js";
@@ -16,6 +17,7 @@ export function initializeModels(sequelize: Sequelize): void {
   if (initialized) return;
 
   initUserModel(sequelize);
+  initAssetModel(sequelize);
   initProductModel(sequelize);
   initProductVariantModel(sequelize);
   initCartItemModel(sequelize);
@@ -52,6 +54,7 @@ export function initializeModels(sequelize: Sequelize): void {
 }
 
 export {
+  Asset,
   CartItem,
   Order,
   OrderItem,

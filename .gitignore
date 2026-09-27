@@ -10,6 +10,7 @@
 **/data/*.db-shm
 **/data/*.db-wal
 **/.env*
+**/.dev.vars*
 !**/.env.example
 *.log
 *.pem

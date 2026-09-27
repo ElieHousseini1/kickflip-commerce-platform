@@ -377,6 +377,32 @@ export const openApiDocument = {
         },
       },
     },
+    "/api/assets/{key}": {
+      get: {
+        tags: ["Products"],
+        summary: "Read an image stored in the database",
+        parameters: [
+          {
+            name: "key",
+            in: "path",
+            required: true,
+            schema: { type: "string" },
+            example: "images/products/diy-quarter-pipe-v3.jpg",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Image bytes",
+            content: {
+              "image/jpeg": { schema: { type: "string", format: "binary" } },
+              "image/png": { schema: { type: "string", format: "binary" } },
+            },
+          },
+          "304": { description: "Not modified" },
+          "404": errorResponse("Asset not found"),
+        },
+      },
+    },
     "/api/products/{slug}": {
       get: {
         tags: ["Products"],

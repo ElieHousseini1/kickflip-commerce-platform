@@ -6,6 +6,7 @@ import { CurrencyPrice } from "@/components/ui/currency-price";
 import { ResilientImage } from "@/components/ui/resilient-image";
 import { ProductPurchase } from "@/components/product/product-purchase";
 import { getSiteUrl } from "@/lib/site-url";
+import { getAssetUrl } from "@/lib/assets";
 import shared from "@/styles/shared.module.css";
 import styles from "@/components/product/product-detail.module.css";
 
@@ -21,13 +22,13 @@ export async function generateMetadata({ params }) {
           title: product.name,
           description: product.description,
           url: `/products/${product.slug}`,
-          images: [{ url: product.image, alt: product.name }],
+          images: [{ url: getAssetUrl(product.image), alt: product.name }],
         },
         twitter: {
           card: "summary_large_image",
           title: product.name,
           description: product.description,
-          images: [product.image],
+          images: [getAssetUrl(product.image)],
         },
       }
     : { title: "Product not found", robots: { index: false } };
@@ -40,7 +41,7 @@ export default async function ProductPage({ params }) {
     "@type": "Product",
     name: product.name,
     description: product.description,
-    image: `${getSiteUrl()}${product.image}`,
+    image: getAssetUrl(product.image),
     sku: product.id,
     brand: { "@type": "Brand", name: "Kickflip Supply" },
     offers: {

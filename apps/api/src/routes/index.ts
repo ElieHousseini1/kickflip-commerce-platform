@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { assetRouter } from "./asset.routes.js";
 import { authRouter } from "./auth.routes.js";
 import { cartRouter } from "./cart.routes.js";
 import { orderRouter } from "./order.routes.js";
@@ -8,6 +9,7 @@ import { wishlistRouter } from "./wishlist.routes.js";
 export const apiRouter = Router();
 
 apiRouter.use("/auth", authRouter);
+apiRouter.use("/assets", assetRouter);
 apiRouter.use("/products", productRouter);
 apiRouter.use("/cart", cartRouter);
 apiRouter.use("/wishlist", wishlistRouter);

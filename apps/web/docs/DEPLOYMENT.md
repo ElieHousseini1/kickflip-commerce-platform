@@ -24,5 +24,6 @@ npm run start
 - Prefer exposing the API through the storefront's public origin with a reverse proxy. For trusted sibling subdomains such as `shop.example.com` and `api.example.com`, configure the backend's `COOKIE_DOMAIN=.example.com`; cross-site deployments require an explicit redesign and testing of `SameSite`, CSRF, and cookie policy.
 - Health checks should target the backend `/health` endpoint and a storefront page separately.
 - `NEXT_PUBLIC_API_URL` must be correct at build time; changing it requires a frontend rebuild.
+- The API database must be seeded so the `assets` table contains the storefront images.
 
 The API documentation in `apps/api` contains its database, secret, backup, container, and scaling guidance.

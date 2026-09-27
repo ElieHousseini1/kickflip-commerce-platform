@@ -10,10 +10,11 @@ The monorepo is not a single deployable. `apps/web` and `apps/api` have independ
 
 ```text
 Browser / Next.js server  →  Express API  →  Sequelize  →  SQLite
-           apps/web             apps/api
+                                                  ├── commerce data
+                                                  └── image BLOBs
 ```
 
-Next.js owns routing and presentation. The API owns authentication, validation, pricing, stock, and persistence. Client totals are previews; checkout recalculates them on the server.
+Next.js owns routing and presentation. The API owns authentication, validation, pricing, stock, persistence, and database-backed image delivery. Product rows reference asset keys; the API streams the corresponding BLOBs with HTTP cache metadata. Client totals are previews; checkout recalculates them on the server.
 
 ## GitHub workflow
 

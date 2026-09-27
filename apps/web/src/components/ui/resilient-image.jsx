@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { getAssetUrl } from "@/lib/assets";
 
-const DEFAULT_FALLBACK = "/images/product-fallback.png";
+const DEFAULT_FALLBACK = getAssetUrl("images/product-fallback.png");
 
 export function ResilientImage({
   src,
@@ -13,13 +14,16 @@ export function ResilientImage({
   ...props
 }) {
   const [failedSrc, setFailedSrc] = useState(null);
-  const activeSrc = failedSrc === src ? fallbackSrc : src;
+  const requestedSrc = getAssetUrl(src);
+  const resolvedFallbackSrc = getAssetUrl(fallbackSrc);
+  const activeSrc =
+    failedSrc === requestedSrc ? resolvedFallbackSrc : requestedSrc;
 
   const handleError = (event) => {
     onError?.(event);
 
-    if (activeSrc !== fallbackSrc) {
-      setFailedSrc(src);
+    if (activeSrc !== resolvedFallbackSrc) {
+      setFailedSrc(requestedSrc);
     }
   };
 

@@ -87,7 +87,7 @@ NEXT_PUBLIC_SESSION_COOKIE_NAME=form_session
 BACKEND_API_URL=http://127.0.0.1:4000/api
 ```
 
-`NEXT_PUBLIC_API_URL` and the cookie name are embedded at build time. The cookie name must match the backend's `COOKIE_NAME`. `BACKEND_API_URL` is server-only and may point to an internal service address in deployment.
+`NEXT_PUBLIC_API_URL` and the cookie name are embedded at build time. The cookie name must match the backend's `COOKIE_NAME`. `BACKEND_API_URL` is server-only and may point to an internal service address in deployment. Images are loaded from the API's database-backed asset endpoint.
 
 ## Quality evidence
 

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { LoginForm } from "@/components/auth/login-form";
 import { BrandLogo } from "@/components/ui/brand-logo";
+import { getAssetUrl } from "@/lib/assets";
 import shared from "@/styles/shared.module.css";
 import styles from "@/components/auth/login.module.css";
 
@@ -19,7 +20,7 @@ export default async function SignupPage({ searchParams }) {
     <section className={styles.page}>
       <div className={styles.visual}>
         <Image
-          src="/images/skate-hero.jpg"
+          src={getAssetUrl("images/skate-hero.jpg")}
           alt=""
           fill
           priority

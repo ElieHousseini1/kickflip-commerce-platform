@@ -1,5 +1,6 @@
 import { ProductCatalog } from "@/components/product/product-catalog";
 import { listProducts } from "@/services/server-api";
+import { getAssetUrl } from "@/lib/assets";
 import shared from "@/styles/shared.module.css";
 import styles from "@/components/product/product-catalog.module.css";
 
@@ -13,7 +14,7 @@ export const metadata = {
     description:
       "Shop complete skateboards, decks, hardware, ramps, protection, and accessories from Kickflip Supply.",
     url: "/products",
-    images: ["/images/products/street-complete-v3.jpg"],
+    images: [getAssetUrl("images/products/street-complete-v3.jpg")],
   },
 };
 

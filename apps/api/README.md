@@ -14,11 +14,14 @@ npm run dev
 
 The API starts on `http://localhost:4000`. On first startup it applies versioned migrations and idempotently seeds the 15-product catalog. User accounts are created only through registration.
 
+Images are stored as BLOBs in SQLite. The idempotent seed imports the checked-in source files under `assets/`, and the API serves them through `GET /api/assets/:key` with MIME types, ETags, and cache headers. The frontend therefore needs no public asset host.
+
 Useful endpoints:
 
 - Health: `GET http://localhost:4000/health`
 - Interactive OpenAPI docs: `http://localhost:4000/docs`
 - OpenAPI JSON: `http://localhost:4000/openapi.json`
+- Database asset: `GET http://localhost:4000/api/assets/images/skate-hero.jpg`
 
 Run the storefront from the other application directory in this monorepo:
 
@@ -63,6 +66,7 @@ This is intentionally a modular monolith: it is easier to understand and deploy 
 | `POST`                  | `/api/auth/logout`    | Public         | Clear the session              |
 | `GET`                   | `/api/products`       | Public         | List all products and variants |
 | `GET`                   | `/api/products/:slug` | Public         | Get product detail             |
+| `GET`                   | `/api/assets/:key`    | Public         | Stream a database-backed image |
 | `GET/POST/PATCH/DELETE` | `/api/cart`           | Required       | Manage the current cart        |
 | `GET/POST/DELETE`       | `/api/wishlist`       | Required       | Manage the wishlist            |
 | `POST`                  | `/api/orders`         | Required       | Atomically place an order      |
