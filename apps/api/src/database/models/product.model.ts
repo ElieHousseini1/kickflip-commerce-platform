@@ -18,6 +18,7 @@ export class Product extends Model<
   declare name: string;
   declare category: string;
   declare priceCents: number;
+  declare compareAtPriceCents: number | null;
   declare stockQuantity: number;
   declare description: string;
   declare image: string;
@@ -38,6 +39,11 @@ export function initProductModel(sequelize: Sequelize): void {
       priceCents: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: { min: 0 },
+      },
+      compareAtPriceCents: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
         validate: { min: 0 },
       },
       stockQuantity: {

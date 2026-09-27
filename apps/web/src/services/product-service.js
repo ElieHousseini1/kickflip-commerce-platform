@@ -1,4 +1,3 @@
-import { toSkateProducts } from "@/lib/skate-catalog";
 import { requestJson } from "@/services/api-client";
 
 export async function searchProducts({ query, category, sort, signal } = {}) {
@@ -8,6 +7,5 @@ export async function searchProducts({ query, category, sort, signal } = {}) {
   if (sort && sort !== "featured") params.set("sort", sort);
 
   const suffix = params.size ? `?${params.toString()}` : "";
-  const result = await requestJson(`/products${suffix}`, { signal });
-  return { products: toSkateProducts(result.products), total: result.total };
+  return requestJson(`/products${suffix}`, { signal });
 }

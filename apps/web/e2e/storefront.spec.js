@@ -30,12 +30,14 @@ test("a customer can register, add a product, and place an order", async ({
   await expect(page.locator("article")).toHaveCount(3);
   await page.getByRole("button", { name: "Previous page" }).click();
   await expect(page.locator("article")).toHaveCount(12);
-  await page.getByRole("searchbox", { name: "Search products" }).fill("street");
+  await page
+    .getByRole("searchbox", { name: "Search products" })
+    .fill("street complete");
   await expect(
     page.getByRole("option", { name: /Street Complete/ }),
   ).toBeVisible();
   await page.getByRole("searchbox", { name: "Search products" }).press("Enter");
-  await expect(page).toHaveURL(/\/products\?q=street$/);
+  await expect(page).toHaveURL(/\/products\?q=street(?:%20|\+)complete$/);
   await expect(page.locator("article")).toHaveCount(1);
   await page.getByRole("button", { name: "Cancel search" }).click();
   await expect(page).toHaveURL(/\/products$/);

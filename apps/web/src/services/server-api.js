@@ -1,11 +1,6 @@
 import "server-only";
 
 import { cookies } from "next/headers";
-import {
-  toSkateProduct,
-  toSkateProducts,
-  toSourceProductSlug,
-} from "@/lib/skate-catalog";
 
 const API_URL = (
   process.env.BACKEND_API_URL ||
@@ -56,15 +51,12 @@ export async function getSession() {
 }
 
 export async function listProducts() {
-  return toSkateProducts((await fetchApi("/products")).products);
+  return (await fetchApi("/products")).products;
 }
 
 export async function findProductBySlug(slug) {
   try {
-    const sourceSlug = toSourceProductSlug(slug);
-    return toSkateProduct(
-      (await fetchApi(`/products/${encodeURIComponent(sourceSlug)}`)).product,
-    );
+    return (await fetchApi(`/products/${encodeURIComponent(slug)}`)).product;
   } catch (error) {
     if (error instanceof ServerApiError && error.status === 404) return null;
     throw error;

@@ -13,7 +13,7 @@ export const metadata = {
     description:
       "Shop complete skateboards, decks, hardware, ramps, protection, and accessories from Kickflip Supply.",
     url: "/products",
-    images: ["/images/products/street-complete.jpg"],
+    images: ["/images/products/street-complete-v3.jpg"],
   },
 };
 

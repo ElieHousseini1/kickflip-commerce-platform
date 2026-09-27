@@ -16,6 +16,9 @@ export function serializeProduct(product: Product): ProductDto {
     name: product.name,
     category: product.category,
     price: centsToDollars(product.priceCents),
+    ...(product.compareAtPriceCents !== null
+      ? { compareAtPrice: centsToDollars(product.compareAtPriceCents) }
+      : {}),
     stockQuantity: product.stockQuantity,
     description: product.description,
     image: product.image,

@@ -4,6 +4,7 @@ export interface ProductDto {
   name: string;
   category: string;
   price: number;
+  compareAtPrice?: number;
   stockQuantity: number;
   description: string;
   image: string;

@@ -26,11 +26,25 @@ describe("Form commerce API", () => {
     expect(catalog.body.products).toHaveLength(15);
     const catalogProducts = catalog.body.products as {
       id: string;
+      slug: string;
+      name: string;
+      image: string;
       price: number;
+      compareAtPrice?: number;
     }[];
     expect(catalogProducts.find((item) => item.id === "vase-002")?.price).toBe(
       45,
     );
+    expect(
+      catalogProducts.find((item) => item.id === "chair-001"),
+    ).toMatchObject({
+      slug: "diy-quarter-pipe",
+      name: "DIY Quarter Pipe",
+      image: "/images/products/diy-quarter-pipe-v3.jpg",
+    });
+    expect(
+      catalogProducts.find((item) => item.id === "lamp-001")?.compareAtPrice,
+    ).toBe(300);
 
     const product = catalog.body.products[0];
     const detail = await request(app)

@@ -3,26 +3,16 @@ import type { ProductListQuery } from "../contracts/product.contract.js";
 import { productRepository } from "../repositories/product.repository.js";
 import { serializeProduct } from "../serializers/product.serializer.js";
 
-const presentation = {
-  "chair-001": { name: "DIY Quarter Pipe", category: "ramps" },
-  "lamp-001": { name: "Street Complete", category: "boards" },
-  "speaker-001": { name: "Hollow Trucks Set", category: "hardware" },
-  "vase-001": { name: "Formula Wheels 54mm", category: "hardware" },
-  "table-001": { name: "Curb Crusher Complete", category: "boards" },
-  "headphones-001": { name: "Impact Skate Helmet", category: "wearables" },
-  "lamp-002": { name: "Flat Bar Grind Rail", category: "ramps" },
-  "clock-001": { name: "Ceramic Speed Bearings", category: "hardware" },
-  "sofa-001": { name: "Backyard Mini Ramp", category: "ramps" },
-  "chair-002": { name: "Pool Shaped Deck", category: "boards" },
-  "lamp-003": { name: "Session Skate Backpack", category: "accessories" },
-  "keyboard-001": { name: "Pro Knee Pad Set", category: "wearables" },
-  "camera-001": { name: "Break-In Hi-Tops", category: "wearables" },
-  "vase-002": { name: "Pocket Skate Tool", category: "accessories" },
-  "tray-001": { name: "After-School Logo Tee", category: "wearables" },
-} as const;
-
-const getPresentation = (id: string) =>
-  presentation[id as keyof typeof presentation];
+const categoryGroups: Record<string, ProductListQuery["category"]> = {
+  completes: "boards",
+  decks: "boards",
+  hardware: "hardware",
+  ramps: "ramps",
+  protection: "wearables",
+  footwear: "wearables",
+  apparel: "wearables",
+  accessories: "accessories",
+};
 
 export const productService = {
   async list(
@@ -34,12 +24,12 @@ export const productService = {
     const normalizedQuery = query.q.toLowerCase();
     const products = allProducts
       .filter((product) => {
-        const display = getPresentation(product.id);
+        const category = categoryGroups[product.category.toLowerCase()];
         const matchesCategory =
-          query.category === "all" || display.category === query.category;
+          query.category === "all" || category === query.category;
         const searchText = [
-          display.name,
-          display.category,
+          product.name,
+          product.category,
           product.description,
           ...product.variantOptions,
         ]
@@ -55,9 +45,7 @@ export const productService = {
         if (query.sort === "price-low") return first.price - second.price;
         if (query.sort === "price-high") return second.price - first.price;
         if (query.sort === "name") {
-          const firstName = getPresentation(first.id).name;
-          const secondName = getPresentation(second.id).name;
-          return firstName.localeCompare(secondName);
+          return first.name.localeCompare(second.name);
         }
         return 0;
       });

@@ -5,6 +5,7 @@ import { pocketSkateToolPrice } from "./002-pocket-skate-tool-price.js";
 import { repairPocketSkateToolTimestamp } from "./003-repair-pocket-skate-tool-timestamp.js";
 import { orderDeliveryMethod } from "./004-order-delivery-method.js";
 import { orderContactDetails } from "./005-order-contact-details.js";
+import { productCompareAtPrice } from "./006-product-compare-at-price.js";
 import type { Migration } from "./migration.js";
 
 const migrations: Migration[] = [
@@ -13,6 +14,7 @@ const migrations: Migration[] = [
   repairPocketSkateToolTimestamp,
   orderDeliveryMethod,
   orderContactDetails,
+  productCompareAtPrice,
 ];
 
 async function ensureMigrationTable(

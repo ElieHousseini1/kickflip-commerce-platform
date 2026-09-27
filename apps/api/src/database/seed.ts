@@ -11,17 +11,40 @@ import { initializeModels, Product, ProductVariant } from "./models/index.js";
 export async function seedDatabase(): Promise<void> {
   initializeModels(sequelize);
 
-  if ((await Product.count()) === 0) {
-    await sequelize.transaction(async (transaction) => {
-      for (const item of catalog) {
-        await Product.create(
+  await sequelize.transaction(async (transaction) => {
+    for (const item of catalog) {
+      const [product, created] = await Product.findOrCreate({
+        where: { id: item.id },
+        defaults: {
+          id: item.id,
+          slug: item.slug,
+          name: item.name,
+          category: item.category,
+          priceCents: Math.round(item.price * 100),
+          compareAtPriceCents:
+            item.compareAtPrice !== undefined
+              ? Math.round(item.compareAtPrice * 100)
+              : null,
+          stockQuantity: item.stockQuantity,
+          description: item.description,
+          image: item.image,
+          variantName: item.variantName,
+          badge: item.badge ?? null,
+        },
+        transaction,
+      });
+
+      if (!created) {
+        await product.update(
           {
-            id: item.id,
             slug: item.slug,
             name: item.name,
             category: item.category,
             priceCents: Math.round(item.price * 100),
-            stockQuantity: item.stockQuantity,
+            compareAtPriceCents:
+              item.compareAtPrice !== undefined
+                ? Math.round(item.compareAtPrice * 100)
+                : null,
             description: item.description,
             image: item.image,
             variantName: item.variantName,
@@ -29,19 +52,35 @@ export async function seedDatabase(): Promise<void> {
           },
           { transaction },
         );
-        await ProductVariant.bulkCreate(
-          item.variantOptions.map((name, index) => ({
-            id: `${item.id}-variant-${index + 1}`,
+      }
+
+      for (const [index, name] of item.variantOptions.entries()) {
+        const id = `${item.id}-variant-${index + 1}`;
+        const [variant, variantCreated] = await ProductVariant.findOrCreate({
+          where: { id },
+          defaults: {
+            id,
             productId: item.id,
             name,
             color: item.colors[index] ?? "#000000",
             sortOrder: index,
-          })),
-          { transaction },
-        );
+          },
+          transaction,
+        });
+
+        if (!variantCreated) {
+          await variant.update(
+            {
+              name,
+              color: item.colors[index] ?? "#000000",
+              sortOrder: index,
+            },
+            { transaction },
+          );
+        }
       }
-    });
-  }
+    }
+  });
 }
 
 const executedDirectly = process.argv[1]?.endsWith("seed.ts") ?? false;
