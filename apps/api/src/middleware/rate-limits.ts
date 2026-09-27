@@ -1,4 +1,5 @@
 import { rateLimit } from "express-rate-limit";
+import { createHash } from "node:crypto";
 
 const commonOptions = {
   standardHeaders: "draft-8" as const,
@@ -22,6 +23,17 @@ export const loginRateLimit = rateLimit({
   windowMs: 15 * 60_000,
   limit: 10,
   skipSuccessfulRequests: true,
+});
+
+export const accountLoginRateLimit = rateLimit({
+  ...commonOptions,
+  windowMs: 15 * 60_000,
+  limit: 10,
+  skipSuccessfulRequests: true,
+  keyGenerator(request) {
+    const email = (request.body as { email: string }).email;
+    return createHash("sha256").update(email).digest("hex");
+  },
 });
 
 export const registrationRateLimit = rateLimit({

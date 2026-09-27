@@ -6,13 +6,16 @@ import { AppError } from "../errors/app-error.js";
 import { userRepository } from "../repositories/user.repository.js";
 import { serializeUser } from "../serializers/user.serializer.js";
 
+const dummyPasswordHash = bcrypt.hashSync("unused-account-password", 12);
+
 export const authService = {
   async login(input: LoginInput) {
     const account = await userRepository.findByEmail(input.email);
-    if (
-      !account ||
-      !(await bcrypt.compare(input.password, account.passwordHash))
-    ) {
+    const passwordMatches = await bcrypt.compare(
+      input.password,
+      account?.passwordHash ?? dummyPasswordHash,
+    );
+    if (!account || !passwordMatches) {
       throw new AppError("The email or password you entered is incorrect.", {
         status: 401,
         code: "INVALID_CREDENTIALS",

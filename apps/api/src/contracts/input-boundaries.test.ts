@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { registerSchema } from "./auth.contract.js";
+import { loginSchema, registerSchema } from "./auth.contract.js";
 import { addCartItemSchema } from "./cart.contract.js";
 import { checkoutSchema } from "./checkout.contract.js";
 import { productListQuerySchema } from "./product.contract.js";
@@ -26,6 +26,58 @@ describe("public input boundaries", () => {
       registerSchema.safeParse({ ...registration, password: "a".repeat(201) })
         .success,
     ).toBe(false);
+  });
+
+  it("enforces the same password limits for registration and login", () => {
+    const registration = {
+      name: "Valid Name",
+      email: "valid@example.com",
+      password: "correct-horse-battery-staple",
+    };
+    expect(
+      registerSchema.safeParse({ ...registration, password: "FourteenChars!" })
+        .success,
+    ).toBe(false);
+    expect(
+      registerSchema.safeParse({ ...registration, password: "FifteenChars!!!" })
+        .success,
+    ).toBe(true);
+    expect(
+      loginSchema.safeParse({
+        email: registration.email,
+        password: "TwelveChars!",
+      }).success,
+    ).toBe(false);
+    expect(
+      loginSchema.safeParse({
+        email: registration.email,
+        password: "FifteenChars!!!",
+      }).success,
+    ).toBe(true);
+    const longPassword = `${"a".repeat(71)}é`;
+    expect(Buffer.byteLength(longPassword, "utf8")).toBe(73);
+    expect(
+      registerSchema.safeParse({ ...registration, password: longPassword })
+        .success,
+    ).toBe(false);
+    expect(
+      loginSchema.safeParse({
+        email: registration.email,
+        password: longPassword,
+      }).success,
+    ).toBe(false);
+    expect(
+      registerSchema.safeParse({
+        ...registration,
+        password: `${"a".repeat(71)}b`,
+      }).success,
+    ).toBe(true);
+    expect(
+      loginSchema.safeParse({
+        email: registration.email,
+        password: `${"a".repeat(71)}b`,
+      }).success,
+    ).toBe(true);
   });
 
   it("rejects invalid checkout field types and lengths", () => {

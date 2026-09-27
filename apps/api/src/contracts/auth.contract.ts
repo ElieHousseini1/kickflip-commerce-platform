@@ -2,8 +2,11 @@ import { z } from "zod";
 
 const passwordSchema = z
   .string()
-  .min(12, "Password must be at least 12 characters.")
+  .min(15, "Password must be at least 15 characters.")
   .max(200)
+  .refine((password) => Buffer.byteLength(password, "utf8") <= 72, {
+    message: "Password must be at most 72 UTF-8 bytes.",
+  })
   .refine((password) => !/^(.)\1+$/.test(password), {
     message: "Password cannot consist of one repeated character.",
   });

@@ -175,6 +175,25 @@
   place-items: center;
   cursor: pointer;
 }
+.generatePassword {
+  align-self: flex-start;
+  padding: 3px 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.generatePassword:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+.fieldError {
+  margin: 0;
+}
 .rememberMe {
   width: fit-content;
   margin-top: -5px;

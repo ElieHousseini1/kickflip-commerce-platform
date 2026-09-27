@@ -2,12 +2,13 @@ import { expect, test } from "@playwright/test";
 
 const password = "correct-horse-battery-staple";
 
-async function registerCustomer(page, name) {
+async function registerCustomer(page, name, signupPath = "/signup") {
   const email = `customer-${Date.now()}-${Math.random().toString(36).slice(2)}@example.com`;
-  await page.goto("/signup");
+  await page.goto(signupPath);
   await page.getByLabel("Full name").fill(name);
   await page.getByLabel("Email address").fill(email);
   await page.getByLabel("Password", { exact: true }).fill(password);
+  await page.getByLabel("Confirm password").fill(password);
   await page.getByRole("button", { name: "Create account" }).click();
   await expect(page).toHaveURL(/\/products$/);
   const promotion = page.getByRole("dialog", {
@@ -21,7 +22,11 @@ async function registerCustomer(page, name) {
 test("a customer can register, add a product, and place an order", async ({
   page,
 }) => {
-  await registerCustomer(page, "E2E Customer");
+  await registerCustomer(
+    page,
+    "E2E Customer",
+    "/signup?next=%2F%5Cevil.example",
+  );
   await expect(page.locator("article")).toHaveCount(12);
   await page.getByRole("button", { name: "Page 2" }).click();
   await expect(page).toHaveURL(/\/products\?page=2$/);
@@ -143,7 +148,43 @@ test("the authenticated catalog does not overflow on mobile", async ({
 test("favorites survive sign-out and sign-in and can be removed", async ({
   page,
 }) => {
-  const email = await registerCustomer(page, "Favorite Customer");
+  const email = `generated-${Date.now()}@example.com`;
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/signup");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    ),
+  ).toBe(false);
+  const passwordField = page.getByLabel("Password", { exact: true });
+  await page.getByRole("button", { name: "Generate password" }).click();
+  await expect(passwordField).toHaveAttribute("type", "text");
+  const firstPassword = await passwordField.inputValue();
+  expect(firstPassword).toMatch(/^[A-Za-z0-9_-]{32}$/);
+  await page.getByLabel("Confirm password").fill(firstPassword);
+  await page.getByRole("button", { name: "Generate password" }).click();
+  const generatedPassword = await passwordField.inputValue();
+  expect(generatedPassword).not.toBe(firstPassword);
+  await expect(page.getByLabel("Confirm password")).toHaveValue("");
+  await page.getByRole("button", { name: "Hide password" }).click();
+  await expect(passwordField).toHaveAttribute("type", "password");
+  await page.getByRole("button", { name: "Show password" }).click();
+  await expect(passwordField).toHaveAttribute("type", "text");
+  await page.getByLabel("Full name").fill("Favorite Customer");
+  await page.getByLabel("Email address").fill(email);
+  await page.getByLabel("Confirm password").fill("incorrect-password-123");
+  await expect(page.getByText("Passwords do not match.")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Create account" }),
+  ).toBeDisabled();
+  await page.getByLabel("Confirm password").fill(generatedPassword);
+  await expect(page.getByText("Passwords do not match.")).toHaveCount(0);
+  await page.getByRole("button", { name: "Create account" }).click();
+  await expect(page).toHaveURL(/\/products$/);
+  await page
+    .getByRole("dialog", { name: "Save 20% on selected gear." })
+    .getByRole("button", { name: "Close promotion" })
+    .click();
   await page
     .locator("article")
     .first()
@@ -158,13 +199,17 @@ test("favorites survive sign-out and sign-in and can be removed", async ({
   await page.goto("/signup");
   await page.getByLabel("Full name").fill("Favorite Customer");
   await page.getByLabel("Email address").fill(email);
-  await page.getByLabel("Password", { exact: true }).fill(password);
+  await page.getByLabel("Password", { exact: true }).fill(generatedPassword);
+  await page.getByLabel("Confirm password").fill(generatedPassword);
   await page.getByRole("button", { name: "Create account" }).click();
   await expect(
     page.getByText("An account with this email already exists."),
   ).toBeVisible();
 
   await page.goto("/login");
+  await expect(
+    page.getByRole("button", { name: "Generate password" }),
+  ).toHaveCount(0);
   await page.getByLabel("Email address").fill(email);
   await page
     .getByLabel("Password", { exact: true })
@@ -173,7 +218,7 @@ test("favorites survive sign-out and sign-in and can be removed", async ({
   await expect(
     page.getByText("The email or password you entered is incorrect."),
   ).toBeVisible();
-  await page.getByLabel("Password", { exact: true }).fill(password);
+  await page.getByLabel("Password", { exact: true }).fill(generatedPassword);
   await page.getByRole("button", { name: "Sign in" }).click();
   await expect(page).toHaveURL(/\/products$/);
 

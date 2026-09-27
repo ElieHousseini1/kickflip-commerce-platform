@@ -75,11 +75,11 @@ The exact schemas and example responses live in Swagger at `/docs`.
 
 ## Security choices
 
-- Passwords are hashed with bcrypt at cost 12 and never serialized.
+- Login and registration both require passwords of at least 15 characters and no more than 72 UTF-8 bytes, so bcrypt cannot silently discard a suffix. Passwords are hashed with bcrypt at cost 12 and never serialized.
 - Sessions use signed, expiring JWTs in `HttpOnly`, `SameSite=Lax` cookies. SQLite stores a hash of each active token. Logout removes the current token's record, so a copied cookie cannot be reused; other sessions remain active. Tokens issued before this migration must log in again.
-- Mutating browser requests are checked against an explicit origin allowlist.
+- Mutating browser requests require an allowed `Origin` or `Referer` origin.
 - CORS allows credentials only for configured frontend origins.
-- Authentication endpoints and the wider API have separate rate limits.
+- Login attempts are limited by both source IP and normalized account email; registration and the wider API have separate limits. Registration immediately starts a session. It returns a distinct duplicate-email response, so account existence can be inferred; avoiding that fully would require email ownership verification, which is outside this assessment's current signup flow.
 - Helmet headers, request-size limits, HTTP parameter pollution protection, strict Zod schemas, and generic production errors reduce common attack surface.
 - Checkout calculates prices on the server and reserves stock inside one database transaction; client totals are never trusted.
 - Logs redact cookies, authorization headers, passwords, and tokens.

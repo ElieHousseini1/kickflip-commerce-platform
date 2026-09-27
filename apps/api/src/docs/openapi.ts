@@ -93,9 +93,10 @@ export const openApiDocument = {
           password: {
             type: "string",
             format: "password",
-            minLength: 12,
+            minLength: 15,
             maxLength: 200,
-            description: "Must not consist of one repeated character.",
+            description:
+              "At most 72 UTF-8 bytes; must not consist of one repeated character.",
           },
           rememberMe: { type: "boolean", default: false },
         },
@@ -110,8 +111,10 @@ export const openApiDocument = {
           password: {
             type: "string",
             format: "password",
-            minLength: 12,
+            minLength: 15,
             maxLength: 200,
+            description:
+              "At most 72 UTF-8 bytes; must not consist of one repeated character.",
           },
         },
       },

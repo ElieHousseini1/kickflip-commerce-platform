@@ -121,20 +121,20 @@ describe("Form commerce API", () => {
     expect(response.body.error.code).toBe("VALIDATION_ERROR");
   });
 
-  it("requires at least 12 characters for new passwords", async () => {
+  it("requires at least 15 characters for new passwords", async () => {
     const response = await request(app)
       .post("/api/auth/register")
       .set("Origin", "http://localhost:3000")
       .send({
         name: "Password Test",
         email: "password-test@example.com",
-        password: "ElevenChars",
+        password: "FourteenChars!",
       })
       .expect(400);
 
     expect(response.body.error).toMatchObject({
       code: "VALIDATION_ERROR",
-      message: "Password must be at least 12 characters.",
+      message: "Password must be at least 15 characters.",
     });
   });
 
@@ -145,7 +145,7 @@ describe("Form commerce API", () => {
       .send({
         name: "Password Test",
         email: "repeated-password@example.com",
-        password: "111111111111",
+        password: "111111111111111",
       })
       .expect(400);
 
@@ -155,7 +155,7 @@ describe("Form commerce API", () => {
     });
   });
 
-  it("does not accept legacy password rules during login", async () => {
+  it("requires the current password policy during login", async () => {
     const response = await request(app)
       .post("/api/auth/login")
       .set("Origin", "http://localhost:3000")
@@ -164,7 +164,7 @@ describe("Form commerce API", () => {
 
     expect(response.body.error).toMatchObject({
       code: "VALIDATION_ERROR",
-      message: "Password must be at least 12 characters.",
+      message: "Password must be at least 15 characters.",
     });
   });
 

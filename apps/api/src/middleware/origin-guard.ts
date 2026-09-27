@@ -12,7 +12,28 @@ export function originGuard(
   }
 
   const origin = request.get("origin");
-  if (!origin || env.CORS_ORIGINS.includes(origin)) {
+  let source = origin;
+  if (!source) {
+    const referer = request.get("referer");
+    if (referer) {
+      try {
+        source = new URL(referer).origin;
+      } catch {
+        source = undefined;
+      }
+    }
+  }
+  let requestOrigin: string | undefined;
+  try {
+    requestOrigin = new URL(`${request.protocol}://${request.get("host")}`)
+      .origin;
+  } catch {
+    requestOrigin = undefined;
+  }
+  if (
+    source &&
+    (source === requestOrigin || env.CORS_ORIGINS.includes(source))
+  ) {
     next();
     return;
   }

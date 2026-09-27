@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Eye, EyeOff, LockKeyhole } from "lucide-react";
 import { useAuth } from "@/components/providers/auth-provider";
 import { getErrorMessage } from "@/lib/error-message";
+import { generatePassword } from "@/lib/generate-password";
+import { getSafeReturnPath } from "@/lib/safe-return-path";
 import shared from "@/styles/shared.module.css";
 import styles from "./login.module.css";
 
@@ -15,28 +17,39 @@ export function LoginForm({ mode = "login", nextPath = "/products" }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
-  const isWeakPassword = password.length < 12 || /^(.)\1+$/.test(password);
+  const passwordBytes = new TextEncoder().encode(password).length;
+  const minimumLength = 15;
+  const isWeakPassword =
+    password.length < minimumLength ||
+    passwordBytes > 72 ||
+    /^(.)\1+$/.test(password);
+  const passwordsDoNotMatch =
+    mode === "register" &&
+    confirmPassword.length > 0 &&
+    confirmPassword !== password;
+  const safePath = getSafeReturnPath(nextPath);
   const alternatePath = mode === "login" ? "/signup" : "/login";
   const alternateHref =
-    nextPath === "/products"
+    safePath === "/products"
       ? alternatePath
-      : `${alternatePath}?next=${encodeURIComponent(nextPath)}`;
+      : `${alternatePath}?next=${encodeURIComponent(safePath)}`;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (mode === "register" && confirmPassword !== password) {
+      setError("Passwords do not match.");
+      return;
+    }
     setError("");
     setPending(true);
     try {
       if (mode === "register") await register({ name, email, password });
       else await login({ email, password, rememberMe });
-      const safePath =
-        nextPath.startsWith("/") && !nextPath.startsWith("//")
-          ? nextPath
-          : "/products";
       router.replace(safePath);
       router.refresh();
     } catch (authError) {
@@ -44,6 +57,17 @@ export function LoginForm({ mode = "login", nextPath = "/products" }) {
         getErrorMessage(authError, "Unable to continue. Please try again."),
       );
       setPending(false);
+    }
+  };
+
+  const handleGeneratePassword = () => {
+    try {
+      setPassword(generatePassword());
+      setConfirmPassword("");
+      setShowPassword(true);
+      setError("");
+    } catch {
+      setError("Could not generate a password. Please enter one manually.");
     }
   };
 
@@ -97,7 +121,7 @@ export function LoginForm({ mode = "login", nextPath = "/products" }) {
         <div className={styles.field}>
           <div className={styles.fieldLabelRow}>
             <label htmlFor="password">Password</label>
-            <span>12+ characters</span>
+            <span>{minimumLength}+ characters</span>
           </div>
           <div className={styles.passwordField}>
             <input
@@ -110,7 +134,7 @@ export function LoginForm({ mode = "login", nextPath = "/products" }) {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Enter your password"
-              minLength={mode === "register" ? 12 : undefined}
+              minLength={15}
               maxLength={200}
               required
             />
@@ -122,7 +146,46 @@ export function LoginForm({ mode = "login", nextPath = "/products" }) {
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
+          {mode === "register" && (
+            <button
+              className={styles.generatePassword}
+              type="button"
+              onClick={handleGeneratePassword}
+            >
+              Generate password
+            </button>
+          )}
+          {passwordBytes > 72 && (
+            <p role="alert">Password must be at most 72 UTF-8 bytes.</p>
+          )}
         </div>
+        {mode === "register" && (
+          <div className={styles.field}>
+            <label htmlFor="confirmPassword">Confirm password</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              autoComplete="new-password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              aria-invalid={passwordsDoNotMatch}
+              aria-describedby={
+                passwordsDoNotMatch ? "password-mismatch" : undefined
+              }
+              required
+            />
+            {passwordsDoNotMatch && (
+              <p
+                id="password-mismatch"
+                className={`${shared.error} ${styles.fieldError}`}
+                role="alert"
+              >
+                Passwords do not match.
+              </p>
+            )}
+          </div>
+        )}
         {mode === "login" && (
           <label className={styles.rememberMe}>
             <input
@@ -146,7 +209,8 @@ export function LoginForm({ mode = "login", nextPath = "/products" }) {
             !email ||
             !password ||
             isWeakPassword ||
-            (mode === "register" && name.trim().length < 2)
+            (mode === "register" &&
+              (name.trim().length < 2 || confirmPassword !== password))
           }
         >
           {pending ? (
