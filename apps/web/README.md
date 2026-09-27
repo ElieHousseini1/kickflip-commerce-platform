@@ -105,4 +105,4 @@ The E2E suite uses an isolated SQLite database and covers registration, catalog 
 - Catalog administration and order history are outside this storefront assessment.
 - SQLite is intended for a single API instance; the backend documents the PostgreSQL scaling path.
 
-See the [deployment guide](docs/DEPLOYMENT.md) and [contribution guide](CONTRIBUTING.md) for operational and review expectations.
+See the [deployment guide](docs/DEPLOYMENT.md) and [contribution guide](../../CONTRIBUTING.md) for operational and review expectations.
