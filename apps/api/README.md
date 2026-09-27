@@ -76,7 +76,7 @@ The exact schemas and example responses live in Swagger at `/docs`.
 ## Security choices
 
 - Passwords are hashed with bcrypt at cost 12 and never serialized.
-- Sessions use signed, expiring JWTs in `HttpOnly`, `SameSite=Lax` cookies.
+- Sessions use signed, expiring JWTs in `HttpOnly`, `SameSite=Lax` cookies. SQLite stores a hash of each active token. Logout removes the current token's record, so a copied cookie cannot be reused; other sessions remain active. Tokens issued before this migration must log in again.
 - Mutating browser requests are checked against an explicit origin allowlist.
 - CORS allows credentials only for configured frontend origins.
 - Authentication endpoints and the wider API have separate rate limits.

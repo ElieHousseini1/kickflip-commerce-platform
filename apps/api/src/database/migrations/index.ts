@@ -7,6 +7,7 @@ import { orderDeliveryMethod } from "./004-order-delivery-method.js";
 import { orderContactDetails } from "./005-order-contact-details.js";
 import { productCompareAtPrice } from "./006-product-compare-at-price.js";
 import { assets } from "./007-assets.js";
+import { sessions } from "./008-sessions.js";
 import type { Migration } from "./migration.js";
 
 const migrations: Migration[] = [
@@ -17,6 +18,7 @@ const migrations: Migration[] = [
   orderContactDetails,
   productCompareAtPrice,
   assets,
+  sessions,
 ];
 
 async function ensureMigrationTable(

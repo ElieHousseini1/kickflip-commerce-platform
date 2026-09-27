@@ -325,7 +325,7 @@ export const openApiDocument = {
     "/api/auth/logout": {
       post: {
         tags: ["Authentication"],
-        summary: "Clear the current session",
+        summary: "Revoke the current session and clear its cookie",
         responses: {
           "200": jsonResponse("Signed out", {
             type: "object",

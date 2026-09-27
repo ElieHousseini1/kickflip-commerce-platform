@@ -4,6 +4,7 @@ import { env } from "../config/env.js";
 import { authService } from "../services/auth.service.js";
 import {
   createSessionToken,
+  revokeSessionToken,
   SESSION_MAX_AGE_SECONDS,
 } from "../security/session.js";
 import { authenticationRequiredError } from "../security/authenticated-user.js";
@@ -54,7 +55,10 @@ export const authController = {
     response.json({ user: serializeUser(request.user) });
   },
 
-  logout: (_request: Request, response: Response) => {
+  logout: async (request: Request, response: Response) => {
+    await revokeSessionToken(
+      request.cookies[env.COOKIE_NAME] as string | undefined,
+    );
     response.clearCookie(env.COOKIE_NAME, {
       httpOnly: true,
       secure: env.NODE_ENV === "production",

@@ -9,6 +9,7 @@ import {
   ProductVariant,
 } from "./product-variant.model.js";
 import { initUserModel, User } from "./user.model.js";
+import { initSessionModel, Session } from "./session.model.js";
 import { initWishlistItemModel, WishlistItem } from "./wishlist-item.model.js";
 
 let initialized = false;
@@ -17,6 +18,7 @@ export function initializeModels(sequelize: Sequelize): void {
   if (initialized) return;
 
   initUserModel(sequelize);
+  initSessionModel(sequelize);
   initAssetModel(sequelize);
   initProductModel(sequelize);
   initProductVariantModel(sequelize);
@@ -61,5 +63,6 @@ export {
   Product,
   ProductVariant,
   User,
+  Session,
   WishlistItem,
 };
