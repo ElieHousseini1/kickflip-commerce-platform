@@ -18,7 +18,7 @@ Next.js owns routing and presentation. The API owns authentication, validation, 
 ## GitHub workflow
 
 - `main` is the integration branch; changes land through short-lived feature/fix branches and pull requests.
-- Each PR documents user-visible behavior, API compatibility or migration impact, and verification. UI changes include desktop/mobile screenshots.
+- Each PR documents user-visible behavior, API compatibility or migration impact, and verification.
 - CI checks each package independently and runs the end-to-end purchase journey against both services.
 - The two lockfiles and package-specific environment examples make dependency and configuration changes explicit.
 - Deploy the API before the storefront when a change requires an API contract or migration; separate service deployments remain possible.

@@ -2,8 +2,6 @@
 
 A polished, responsive Next.js storefront backed by a separate TypeScript/Express API. It demonstrates the complete authenticated journey from product discovery through cart, wishlist, checkout, and order confirmation.
 
-![Form product catalog](docs/screenshots/catalog-desktop.png)
-
 ## Assessment coverage
 
 | Requirement         | Implementation                                                                     |
@@ -16,16 +14,6 @@ A polished, responsive Next.js storefront backed by a separate TypeScript/Expres
 | Checkout            | Delivery form, order review, transactional stock reservation, and confirmation     |
 | Responsive design   | Desktop, tablet, mobile navigation and layouts with automated overflow coverage    |
 | Engineering quality | CSS Modules, isolated components, loading/error states, CI, unit and E2E tests     |
-
-## Product tour
-
-| Product detail                                         | Cart                                        |
-| ------------------------------------------------------ | ------------------------------------------- |
-| ![Product detail](docs/screenshots/product-detail.png) | ![Shopping cart](docs/screenshots/cart.png) |
-
-| Checkout                                   | Mobile catalog                                         |
-| ------------------------------------------ | ------------------------------------------------------ |
-| ![Checkout](docs/screenshots/checkout.png) | ![Mobile catalog](docs/screenshots/catalog-mobile.png) |
 
 ## Application boundary
 

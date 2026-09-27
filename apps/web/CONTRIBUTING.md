@@ -19,4 +19,4 @@
 
 ## Pull requests
 
-Explain the user-visible outcome, API compatibility impact, important decisions, and verification performed. Avoid combining unrelated refactors and features. Screenshots are expected for visual changes, including a mobile viewport when responsive behavior changes.
+Explain the user-visible outcome, API compatibility impact, important decisions, and verification performed. Avoid combining unrelated refactors and features.

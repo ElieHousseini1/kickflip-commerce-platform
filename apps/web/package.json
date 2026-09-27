@@ -12,7 +12,6 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "NEXT_PUBLIC_API_URL=http://127.0.0.1:4100/api BACKEND_API_URL=http://127.0.0.1:4100/api npm run build && playwright test",
-    "screenshots": "node scripts/capture-screenshots.mjs",
     "check": "npm run format:check && npm run lint && npm run test && npm run build"
   },
   "dependencies": {
