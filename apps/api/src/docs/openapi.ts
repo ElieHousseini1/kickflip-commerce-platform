@@ -37,7 +37,7 @@ const cartSchema = {
 export const openApiDocument = {
   openapi: "3.1.0",
   info: {
-    title: "Form mini-commerce API",
+    title: "Kickflip Supply API",
     version: "1.0.0",
     description:
       "Authenticated commerce API built with Express, TypeScript, Sequelize, and SQLite.",

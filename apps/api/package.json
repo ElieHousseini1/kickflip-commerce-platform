@@ -1,8 +1,8 @@
 {
-  "name": "mini-ecommerce-backend",
+  "name": "kickflip-commerce-api",
   "version": "1.0.0",
   "private": true,
-  "description": "Production-oriented Express, TypeScript, Sequelize, and SQLite API for Form mini-commerce.",
+  "description": "Production-oriented Express, TypeScript, Sequelize, and SQLite API for Kickflip Supply.",
   "type": "module",
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24.0.0"

@@ -4,7 +4,7 @@ A monorepo with two apps: a TypeScript/Express REST API (`apps/api`) backed by
 SQLite, and a Next.js storefront (`apps/web`). Tracked files only.
 
 ```
-mini-ecommerce-monorepo/
+kickflip-commerce-platform/
 ├── .github/
 │   ├── workflows/
 │   │   └── quality.yml

@@ -15,7 +15,7 @@ afterAll(async () => {
   await closeDatabase();
 });
 
-describe("Form commerce API", () => {
+describe("Kickflip Supply API", () => {
   it("reports database readiness", async () => {
     const response = await request(app).get("/health").expect(200);
     expect(response.body).toEqual({ status: "ok", database: "connected" });

@@ -1,4 +1,4 @@
-# Form Commerce API
+# Kickflip Supply API
 
 An interview-ready REST API for the storefront in `../web`. It is built with Express 5, TypeScript, Sequelize, and SQLite, with deliberately explicit application layers and production-minded defaults.
 

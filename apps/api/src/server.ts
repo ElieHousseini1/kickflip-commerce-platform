@@ -11,7 +11,7 @@ try {
   server.listen(env.PORT, () => {
     logger.info(
       { port: env.PORT, environment: env.NODE_ENV },
-      "Form API listening",
+      "Kickflip Supply API listening",
     );
   });
 

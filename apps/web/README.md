@@ -1,4 +1,4 @@
-# Form mini-commerce
+# Kickflip Supply Storefront
 
 A polished, responsive Next.js storefront backed by a separate TypeScript/Express API. It demonstrates the complete authenticated journey from product discovery through cart, wishlist, checkout, and order confirmation.
 

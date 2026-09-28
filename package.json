@@ -1,5 +1,5 @@
 {
-  "name": "kickflip-supply",
+  "name": "kickflip-commerce-platform",
   "private": true,
   "description": "Storefront and API in one repository with independent application dependencies.",
   "scripts": {
