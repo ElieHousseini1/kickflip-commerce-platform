@@ -4,10 +4,10 @@
 
 Codex
 
-## When I used it
+## When and How I used it
 
-I used Codex to plan the project architecture and during development.
-First, I wrote an instruction set file which includes the scope which is considered the context for him,
+I use Codex to plan the project architecture, generate ideas and get recommendations pre and post development
+First, I wrote an instruction set file which included a breakdown of the project into tasks,
 Answering the triple Ws (What, why, who) of the project and highlighting any nuances.
 Then I tried asking it high level questions about it making sure it understands the scope.
 
